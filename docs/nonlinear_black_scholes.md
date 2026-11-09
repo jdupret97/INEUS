@@ -11,19 +11,14 @@ provide approximate references, not trained neural baselines.
 The configured problem is
 
 $$
-\partial_t u + \mu\sum_{i=1}^{d}x_i\partial_{x_i}u
-+ \frac{\sigma^2}{2}\sum_{i=1}^{d}x_i^2\partial_{x_ix_i}u
-- [(1-\delta)Q(u)+R]u
-+ \lambda\mathbb{E}[u(t,x\odot e^Z)-u(t,x)] = 0,
-\qquad u(T,x)=\min_i x_i.
+\partial_t u + \mu\sum_{i=1}^{d}x_i\partial_{x_i}u + \frac{\sigma^2}{2}\sum_{i=1}^{d}x_i^2\partial_{x_ix_i}u - [(1-\delta)Q(u)+R]u + \lambda\mathbb{E}[u(t,x\odot e^Z)-u(t,x)] = 0, \qquad u(T,x)=\min_i x_i.
 $$
 
 The intensity is $Q(u)=\gamma_h$ below $v_h$, $Q(u)=\gamma_l$ at or
 above $v_l$, and linear between the two thresholds. Jump components are
 
 $$
-Z_i=\mu_J+\sigma_J\bigl(\sqrt{\rho_J}\xi_0
-+\sqrt{1-\rho_J}\xi_i\bigr),
+Z_i=\mu_J+\sigma_J\bigl(\sqrt{\rho_J}\xi_0 +\sqrt{1-\rho_J}\xi_i\bigr),
 $$
 
 with independent standard-normal $\xi_0,\xi_1,\ldots,\xi_d$. Diffusion
