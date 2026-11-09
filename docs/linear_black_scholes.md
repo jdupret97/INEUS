@@ -13,9 +13,8 @@ For asset prices $S=(S_1,\ldots,S_d)$, the equation is
 
 $$
 \partial_t u + \sum_i(r-\lambda_i\kappa_i)S_i\partial_{S_i}u
-+ \frac12\sum_{i,j}\sigma_i\sigma_j\Sigma_{ij}S_iS_j
-\partial_{S_iS_j}u - ru
-+ \sum_i\lambda_i\mathbb E[u(t,S^{(i,Z_i)})-u(t,S)] = 0,
++ \frac{1}{2}\sum_{i,j}\sigma_i\sigma_j\Sigma_{ij}S_iS_j
+\partial_{S_iS_j}u - ru + \sum_i\lambda_i\mathbb E[u(t,S^{(i,Z_i)})-u(t,S)] = 0,
 $$
 
 with $u(T,S)=(\sum_i w_iS_i-K)_+$, $w_i=1/d$,
