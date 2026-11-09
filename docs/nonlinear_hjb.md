@@ -8,9 +8,9 @@ are in [configs/nonlinear.yaml](../configs/nonlinear.yaml).
 
 For centered Gaussian jump marks $E$, the implemented equation is
 
-$
+$$
 \partial_t u+\Delta u-\eta\lVert\nabla u\rVert^2+f -\frac{\lambda}{\eta} \left(\mathbb E\left[e^{-\eta(u(t,x+E)-u(t,x))}\right]-1\right)=0, \qquad u(T,x)=\lVert x\rVert^2.
-$
+$$
 
 | Setting | YAML field under `parameters.problem` | Default |
 |---|---|---|
