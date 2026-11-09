@@ -1,0 +1,39 @@
+name: One-time INEUS source import
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/import-source.yml
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Restore uploaded source archive from repository history
+        shell: bash
+        run: |
+          set -euo pipefail
+          git show 2265fbe65babce3d270bd917d7f4bfeb93a998c5:INEUS-main_code.zip > "$RUNNER_TEMP/INEUS-main_code.zip"
+          echo "a5b35d963d781d89aa01d1e9ff184fc7f2d55de3f13281249e4ab9748d67d773  $RUNNER_TEMP/INEUS-main_code.zip" | sha256sum -c -
+          mkdir -p "$RUNNER_TEMP/source"
+          unzip -q "$RUNNER_TEMP/INEUS-main_code.zip" -d "$RUNNER_TEMP/source"
+          test -f "$RUNNER_TEMP/source/INEUS-main/pyproject.toml"
+      - name: Commit project source as repository root
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp -a "$RUNNER_TEMP/source/INEUS-main/." ./
+          rm -f .github/workflows/import-source.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Import INEUS research code from source archive"
+          git push origin HEAD:main
