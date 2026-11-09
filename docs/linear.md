@@ -10,7 +10,7 @@ For state dimension $d$ and Brownian dimension $q$, the equation is
 
 $$
 \partial_t u+\beta x\cdot\nabla u
-+\frac12\operatorname{Tr}(\Sigma\Sigma^\top D^2u)
++\frac12 \text{Tr}(\Sigma\Sigma^\top D^2u)
 +\lambda\,\mathbb E[u(t,x+E)-u(t,x)]-cu=0,
 \qquad u(T,x)=\|x\|^2,
 $$
@@ -32,7 +32,7 @@ removes the jump term. These options parameterize this equation family;
 they do not replace its quadratic terminal condition.
 
 Evaluation uses the exact solution. With $\tau=T-t$ and
-$A=\|\Sigma\|_F^2+\lambda\operatorname{Tr}(\Sigma_J)$,
+$A=\|\Sigma\|_F^2+\lambda\text{Tr}(\Sigma_J)$,
 
 $$
 u(t,x)=e^{(2\beta-c)\tau}\|x\|^2
