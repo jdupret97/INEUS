@@ -1,0 +1,78 @@
+# FAST PIPELINE TEST ONLY: reduced networks, batches, Monte Carlo samples and training.
+# These reduced settings are not suitable for reporting accuracy.
+experiment: nonlinear
+mode: comparison
+seed: 29
+runs: 1
+output_dir: results/nonlinear_smoke
+parameters:
+  problem:
+    state_dim: 10
+    jump_dim: 10
+    horizon: 1.0
+    eta: 1.0
+    jump_intensity: 0.5
+    driver_constant: 2.0
+    jump_covariance_scale: 0.2
+  model:
+    hidden_dim: 8
+    n_layers: 2
+    constrained_terminal_value: true
+  train:
+    batch_size: 32
+    num_samples: 64
+    buffer_size: 128
+    epochs_ineus: 20
+    epochs_pinn: 20
+    learning_rate_ineus: 0.0005
+    learning_rate_pinn: 0.0005
+    learning_rate_decay_steps: 1000
+    learning_rate_decay_ineus: 0.995
+    learning_rate_decay_pinn: 0.991
+    learning_rate_staircase: true
+    target_mixing: 0.0
+    n_inner: 2
+    num_batches: 1
+    h: 0.5
+    alpha: 0.4
+    averaging_block_size: 10
+    distillation_steps: 5
+    distillation_learning_rate: 0.001
+    replace_with_student: true
+    use_rad: true
+    rad_period: 5
+    rad_exponent: 1.0
+    rad_offset: 1.0
+    rad_candidate_size: 128
+    rad_eval_batch_size: 64
+    jump_samples: 3
+    test_jump_samples: 3
+    rad_jump_samples: 3
+    log_every: 2
+    num_t0_each_epoch: 2
+  bsde:
+    num_local_models: 5
+    local_epochs: 20
+    local_batch_size: 32
+    local_learning_rate: 0.0003
+    local_eval_every: 5
+    n_time_steps: 2
+    z_hidden_dim: 8
+    z_hidden_layers: 1
+    jump_hidden_dim: 8
+    jump_hidden_layers: 1
+    jump_expectation_samples: 4
+    gradient_clip_norm: 1.0
+    surrogate_epochs: 20
+    surrogate_batch_size: 4
+    surrogate_learning_rate: 0.001
+    surrogate_hidden_dim: 8
+    surrogate_hidden_layers: 1
+    surrogate_eval_every: 5
+  evaluation:
+    test_seed: 2
+    reference_seed: 124
+    test_samples: 16
+    test_space_bound: 1.5
+    reference_paths: 128
+    reference_chunk_size: 32

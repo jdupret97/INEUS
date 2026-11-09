@@ -1,0 +1,12 @@
+# Full training/reference budgets inherited from Python defaults.
+# Ten runs per dimension; high-dimensional Monte Carlo references are expensive.
+# Switch mode to comparison to train PINN and local deep BSDE as well.
+experiment: nonlinear
+mode: ineus
+seed: 29
+runs: 10
+output_dir: results/nonlinear_sweep
+parameters:
+  problem:
+    dimensions: [5, 10, 25, 50, 100]
+    jump_intensity: 0.5  # Set 0.0 for the no-jump PDE.

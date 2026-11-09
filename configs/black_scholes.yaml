@@ -1,0 +1,64 @@
+# Nonlinear Black-Scholes/default-risk experiment: INEUS, with jumps.
+# CLI flags override YAML values. Paths are relative to the working directory.
+experiment: black_scholes
+mode: ineus
+seed: 1
+runs: 5
+output_dir: results/black_scholes
+parameters:
+  problem:
+    dimen: 100
+    T: 1.0
+    delta_recovery: 0.6666666666666666
+    R_rate: 0.02
+    mu_bar: 0.02
+    sigma_bar: 0.20
+    v_h: 50.0
+    v_l: 70.0
+    gamma_h: 0.20
+    gamma_l: 0.02
+    jump_intensity: 0.1
+    jump_mean: -0.2
+    jump_std: 0.15
+    jump_corr: 0.5
+    use_jumps: true
+  model:
+    hidden_dim: 100
+    n_layers: 3
+    constrained: false
+  train:
+    sample_b: 200.0
+    h_scale: 1.0
+    zeta_scale: 1.25
+    n_inner: 20
+    num_batches: 32
+    lr: 0.001
+    lr_decay_steps: 1000
+    lr_decay_rate: 0.995
+    epochs: 400
+    batch_size: 1024
+    num_samples: 2048
+    rho1: 0.0
+    w_bc: 1.0
+    w_int: 1.0
+    buffer_size: 16384
+    use_path_sampling: true
+    block_size: 10
+    distill_steps: 200
+    student_lr: 0.0001
+    replace_with_student: true
+    use_rad: false
+    rad_period: 5
+    rad_k: 1.0
+    rad_c: 1.0
+    rad_candidate_size: 16384
+    rad_eval_batch_size: 2048
+    test_samples: 500
+    grad_clip: 1.0
+    use_cosine_lr: true
+    resume_path: null
+  evaluation:
+    x0_value: 100.0
+    # Omitted u_ref selects 55.810 with jumps, 57.300 without jumps.
+    # Set u_ref explicitly to override, or use u_ref: null to omit reference errors.
+    dimen: 100

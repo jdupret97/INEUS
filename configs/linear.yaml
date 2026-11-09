@@ -1,0 +1,94 @@
+# Linear PIDE experiment. Change mode to ineus to skip baseline training.
+# CLI flags override YAML values. Paths are relative to the working directory.
+# Problem fields select the quadratic equation; defaults retain the 10D jump case.
+# Each outer epoch uses (n_inner - 1) * num_batches = 608 main Adam updates.
+experiment: linear
+mode: comparison
+seed: 29
+runs: 10
+output_dir: rPINN/comparison_three_methods_local_bsde
+parameters:
+  problem:
+    state_dim: 10
+    dimensions: []  # Optional sweep, e.g. [10, 25, 50, 100, 150]; overrides state_dim.
+    brownian_dim: 10
+    horizon: 0.5
+    jump_intensity: 0.25  # Set 0.0 for the no-jump PDE.
+    drift: 1.0
+    discount: 2.0
+    sample_box: 1.75
+    test_box: 1.5
+    coefficient_seed: 23  # Sample the equation matrices once, independently of the run seed.
+    diffusion_mode: random  # random: Gaussian entries; constant: all entries equal diffusion_scale.
+    diffusion_scale: 0.3  # Gaussian standard deviation in random mode.
+    jump_covariance_mode: random_diagonal  # Or isotropic: jump_covariance_scale * identity.
+    jump_covariance_min: 0.01  # Lower bound for the uniform diagonal covariance entries.
+    jump_covariance_scale: 0.4  # Random upper bound or isotropic variance, not a standard deviation.
+  model:
+    hidden_dim: 50
+    n_layers: 4  # One initial hidden layer and three independently parameterized gated stages.
+    output_dim: 1
+    constrained: true
+  ineus:
+    epochs: 1000
+    num_samples: 2048
+    buffer_size: 4096
+    batch_size: 1024
+    learning_rate: 0.0005  # Constant Adam rate.
+    target_weight: 0.0
+    n_inner: 20
+    num_batches: 32
+    h_scale: 0.5
+    relaxation: 0.4  # Outer relaxation; averaging weight = relaxation / h_scale = 0.8.
+    block_size: 10
+    distill_steps: 200
+    student_learning_rate: 0.001
+    replace_with_student: true
+    use_rad: true
+    rad_period: 5
+    rad_exponent: 1.0
+    rad_offset: 1.0
+    rad_candidate_multiplier: 8
+    rad_eval_batch_size: 2048
+    jump_samples: 25
+    test_jump_samples: 50
+    log_every: 2
+  pinn:
+    epochs: 1000
+    num_samples: 2048
+    buffer_size: 4096
+    batch_size: 1024
+    learning_rate: 0.0005  # Constant Adam rate.
+    n_inner: 20
+    num_batches: 32
+    use_rad: true
+    rad_period: 5
+    rad_exponent: 1.0
+    rad_offset: 1.0
+    rad_candidate_multiplier: 8
+    rad_eval_batch_size: 2048
+    jump_samples: 64
+    rad_jump_samples: 25
+    test_jump_samples: 50
+    log_every: 2
+  bsde:
+    num_local_models: 100
+    local_epochs: 10000
+    local_batch_size: 1024
+    local_learning_rate: 0.0003  # Constant Adam rate for each local BSDE solve.
+    local_eval_every: 500
+    time_steps: 25
+    hidden_dim_z: 128
+    n_hidden_z: 3
+    hidden_dim_u: 128
+    n_hidden_u: 3
+    jump_expectation_samples: 64
+    clipnorm: 1.0
+    surrogate_epochs: 5000
+    surrogate_batch_size: 256
+    surrogate_learning_rate: 0.001  # Constant Adam rate for the global surrogate.
+    surrogate_hidden_dim: 128
+    surrogate_n_hidden: 3
+    surrogate_eval_every: 500
+  evaluation:
+    test_samples: 2000

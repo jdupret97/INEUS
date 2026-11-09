@@ -1,0 +1,89 @@
+# FAST PIPELINE TEST ONLY: reduced networks, batches, Monte Carlo samples and training.
+# These reduced settings are not suitable for reporting accuracy.
+experiment: linear
+mode: comparison
+seed: 29
+runs: 1
+output_dir: results/linear_smoke
+parameters:
+  problem:
+    state_dim: 10
+    brownian_dim: 10
+    horizon: 0.5
+    jump_intensity: 0.25
+    drift: 1.0
+    discount: 2.0
+    sample_box: 1.75
+    test_box: 1.5
+    coefficient_seed: 23
+    diffusion_scale: 0.3
+    jump_covariance_min: 0.01
+    jump_covariance_scale: 0.4
+  model:
+    hidden_dim: 8
+    n_layers: 3
+    output_dim: 1
+    constrained: true
+  ineus:
+    epochs: 20
+    num_samples: 64
+    buffer_size: 128
+    batch_size: 32
+    learning_rate: 0.0001
+    target_weight: 0.0
+    n_inner: 2
+    num_batches: 1
+    h_scale: 1.0
+    relaxation: 0.8
+    block_size: 10
+    distill_steps: 5
+    student_learning_rate: 0.001
+    replace_with_student: true
+    use_rad: true
+    rad_period: 5
+    rad_exponent: 1.0
+    rad_offset: 1.0
+    rad_candidate_multiplier: 2
+    rad_eval_batch_size: 64
+    jump_samples: 3
+    test_jump_samples: 3
+    log_every: 2
+  pinn:
+    epochs: 20
+    num_samples: 64
+    buffer_size: 128
+    batch_size: 32
+    learning_rate: 0.0001
+    n_inner: 2
+    num_batches: 1
+    use_rad: true
+    rad_period: 5
+    rad_exponent: 1.0
+    rad_offset: 1.0
+    rad_candidate_multiplier: 2
+    rad_eval_batch_size: 64
+    jump_samples: 3
+    rad_jump_samples: 3
+    test_jump_samples: 3
+    log_every: 2
+  bsde:
+    num_local_models: 5
+    local_epochs: 20
+    local_batch_size: 32
+    local_learning_rate: 0.0003
+    local_eval_every: 5
+    time_steps: 2
+    hidden_dim_z: 8
+    n_hidden_z: 1
+    hidden_dim_u: 8
+    n_hidden_u: 1
+    jump_expectation_samples: 4
+    clipnorm: 1.0
+    surrogate_epochs: 20
+    surrogate_batch_size: 4
+    surrogate_learning_rate: 0.001
+    surrogate_hidden_dim: 8
+    surrogate_n_hidden: 1
+    surrogate_eval_every: 5
+  evaluation:
+    test_samples: 16

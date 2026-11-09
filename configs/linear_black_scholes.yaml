@@ -1,0 +1,56 @@
+# Linear Black–Scholes basket-call PIDE: dimension 10, ten independent runs.
+experiment: linear_black_scholes
+mode: ineus
+seed: 23
+runs: 10
+output_dir: rPINN/Black_Scholes/Black_Scholes_dimension_sweep
+parameters:
+  problem:
+    dimensions: [10]
+    T: 1.0
+    r: 0.05
+    max_S: 100.0
+    K_multiplier: 0.3
+    sample_b: 120.0
+    jump_intensity: 0.5
+    correlation: 0.10
+    sigma: 0.15
+    jump_mean: 0.20
+    jump_std: 0.30
+  model:
+    hidden_dim: 50
+    n_layers: 3
+  train:
+    batch_size: 1024
+    num_samples: 2048
+    nc_samples: 2048  # Retained metadata; not used by the training loop.
+    buffer_size: 4096
+    rho1: 0.0
+    h_scale: 0.5
+    relaxation: 0.4
+    w_bc: 0.0
+    w_int: 1.0
+    epochs: 1000
+    lr1: 0.0005
+    lr2: 0.001
+    n_inner: 20
+    num_batches: 32
+    run_phase2: false
+    use_rad: true
+    rad_period: 5
+    rad_k: 1.0
+    rad_c: 1.0
+    rad_candidate_multiplier: 8
+    rad_eval_batch_size: 2048
+    use_distill: true
+    distill_block_size: 10
+    distill_steps: 200
+    distill_student_lr: 0.001
+    replace_with_student: true
+  evaluation:
+    test_samples: 2000
+    mc_test_paths: 20000
+    mc_curve_paths: 20000
+    n_x_curve: 401
+    n_t_curve: 401
+    output_tag: bs_dimension_sweep

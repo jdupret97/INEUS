@@ -1,0 +1,60 @@
+# PIPELINE TEST ONLY: two tiny dimensions and two outer epochs, not accuracy results.
+# Includes tiny baseline budgets so --mode comparison is also a short test.
+experiment: linear
+mode: ineus
+seed: 29
+runs: 1
+output_dir: results/linear_sweep_smoke
+parameters:
+  problem:
+    dimensions: [2, 3]
+    brownian_dim: 2
+  model:
+    hidden_dim: 4
+  ineus:
+    epochs: 2
+    num_samples: 8
+    buffer_size: 16
+    batch_size: 4
+    n_inner: 2
+    num_batches: 1
+    block_size: 1
+    distill_steps: 1
+    rad_period: 1
+    rad_candidate_multiplier: 2
+    rad_eval_batch_size: 8
+    jump_samples: 3
+    test_jump_samples: 3
+    log_every: 1
+  pinn:
+    epochs: 2
+    num_samples: 8
+    buffer_size: 16
+    batch_size: 4
+    n_inner: 2
+    num_batches: 1
+    rad_period: 1
+    rad_candidate_multiplier: 2
+    rad_eval_batch_size: 8
+    jump_samples: 3
+    rad_jump_samples: 3
+    test_jump_samples: 3
+    log_every: 1
+  bsde:
+    num_local_models: 5
+    local_epochs: 2
+    local_batch_size: 4
+    local_eval_every: 1
+    time_steps: 2
+    hidden_dim_z: 4
+    n_hidden_z: 1
+    hidden_dim_u: 4
+    n_hidden_u: 1
+    jump_expectation_samples: 3
+    surrogate_epochs: 2
+    surrogate_batch_size: 4
+    surrogate_hidden_dim: 4
+    surrogate_n_hidden: 1
+    surrogate_eval_every: 1
+  evaluation:
+    test_samples: 4

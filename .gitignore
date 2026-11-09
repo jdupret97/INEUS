@@ -1,0 +1,54 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+build/
+dist/
+
+# Environments and local configuration
+.venv/
+venv/
+env/
+.conda/
+.env
+.env.*
+.python-version
+
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Experiment outputs
+results/
+rPINN/
+
+# Local input folder (including independent results and Git metadata)
+/upload/
+
+# Model checkpoints
+checkpoints/
+checkpoint
+*.ckpt
+*.h5
+*.keras
+*.index
+*.data-*
+
+# HPC scheduler logs
+slurm-*.out
+slurm-*.err
+slurm-*.log
+*.out
+*.err

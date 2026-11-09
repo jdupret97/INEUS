@@ -1,0 +1,50 @@
+# PIPELINE TEST ONLY: two tiny dimensions, two outer epochs and a noisy reference.
+# Includes tiny baseline budgets so --mode comparison is also a short test.
+experiment: nonlinear
+mode: ineus
+seed: 29
+runs: 1
+output_dir: results/nonlinear_sweep_smoke
+parameters:
+  problem:
+    dimensions: [2, 3]
+  model:
+    hidden_dim: 4
+  train:
+    epochs_ineus: 2
+    epochs_pinn: 2
+    batch_size: 4
+    num_samples: 8
+    buffer_size: 16
+    n_inner: 2
+    num_batches: 1
+    averaging_block_size: 1
+    distillation_steps: 1
+    rad_period: 1
+    rad_candidate_size: 16
+    rad_eval_batch_size: 8
+    jump_samples: 3
+    test_jump_samples: 3
+    rad_jump_samples: 3
+    log_every: 1
+    num_t0_each_epoch: 2
+  bsde:
+    num_local_models: 5
+    local_epochs: 2
+    local_batch_size: 4
+    local_eval_every: 1
+    n_time_steps: 2
+    z_hidden_dim: 4
+    z_hidden_layers: 1
+    jump_hidden_dim: 4
+    jump_hidden_layers: 1
+    jump_expectation_samples: 3
+    surrogate_epochs: 2
+    surrogate_batch_size: 4
+    surrogate_hidden_dim: 4
+    surrogate_hidden_layers: 1
+    surrogate_eval_every: 1
+  evaluation:
+    test_samples: 4
+    reference_paths: 32
+    reference_chunk_size: 16

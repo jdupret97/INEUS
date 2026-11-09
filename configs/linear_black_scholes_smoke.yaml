@@ -1,0 +1,32 @@
+# Small integration check only: not a statistically meaningful experiment.
+experiment: linear_black_scholes
+mode: ineus
+seed: 23
+runs: 1
+output_dir: results/linear_black_scholes_smoke
+parameters:
+  problem:
+    dimensions: [2, 3]
+  model:
+    hidden_dim: 4
+    n_layers: 2
+  train:
+    batch_size: 4
+    num_samples: 8
+    buffer_size: 16
+    epochs: 2
+    n_inner: 2
+    num_batches: 1
+    use_rad: true
+    rad_period: 1
+    rad_candidate_multiplier: 2
+    rad_eval_batch_size: 8
+    use_distill: true
+    distill_block_size: 1
+    distill_steps: 1
+  evaluation:
+    test_samples: 4
+    mc_test_paths: 20
+    mc_curve_paths: 20
+    n_x_curve: 3
+    n_t_curve: 3

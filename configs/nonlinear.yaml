@@ -1,0 +1,81 @@
+# Nonlinear HJB experiment. Change mode to ineus to skip baseline training.
+# CLI flags override YAML values. Paths are relative to the working directory.
+# Problem fields select the HJB equation; defaults retain the 10D jump case.
+# Each outer epoch uses (n_inner - 1) * num_batches = 608 main Adam updates.
+experiment: nonlinear
+mode: comparison
+seed: 29
+runs: 10
+output_dir: rPINN/nonlinear/nonlinear_three_methods
+parameters:
+  problem:
+    state_dim: 10
+    dimensions: []  # Optional sweep, e.g. [5, 10, 25, 50, 100]; overrides state_dim/jump_dim.
+    jump_dim: 10  # Must equal state_dim; CLI --dimension updates both.
+    horizon: 1.0
+    eta: 1.0
+    jump_intensity: 0.5  # Set 0.0 for the no-jump PDE.
+    driver_constant: 2.0
+    jump_covariance_scale: 0.2
+  model:
+    hidden_dim: 50
+    n_layers: 4  # One initial hidden layer and three independently parameterized gated stages.
+    constrained_terminal_value: true
+  train:
+    batch_size: 1024
+    num_samples: 2048
+    buffer_size: 4096
+    epochs_ineus: 1000
+    epochs_pinn: 1000
+    learning_rate_ineus: 0.0005  # Constant Adam rate with decay factor 1.0.
+    learning_rate_pinn: 0.0005  # Constant Adam rate with decay factor 1.0.
+    learning_rate_decay_steps: 1000  # Main optimizer updates, not epochs.
+    learning_rate_decay_ineus: 1.0  # Disables learning-rate decay.
+    learning_rate_decay_pinn: 1.0  # Disables learning-rate decay.
+    learning_rate_staircase: true
+    target_mixing: 0.0
+    n_inner: 20
+    num_batches: 32
+    h: 0.5
+    alpha: 0.4  # Outer relaxation; averaging weight = alpha / h = 0.8.
+    averaging_block_size: 10
+    distillation_steps: 200
+    distillation_learning_rate: 0.001
+    replace_with_student: true
+    use_rad: true
+    rad_period: 5
+    rad_exponent: 1.0
+    rad_offset: 1.0
+    rad_candidate_size: 16384
+    rad_eval_batch_size: 2048
+    jump_samples: 64
+    test_jump_samples: 50
+    rad_jump_samples: 25
+    log_every: 2
+    num_t0_each_epoch: 5
+  bsde:
+    num_local_models: 100
+    local_epochs: 10000
+    local_batch_size: 1024
+    local_learning_rate: 0.0003  # Constant Adam rate for each local BSDE solve.
+    local_eval_every: 500
+    n_time_steps: 25
+    z_hidden_dim: 128
+    z_hidden_layers: 3
+    jump_hidden_dim: 128
+    jump_hidden_layers: 3
+    jump_expectation_samples: 64
+    gradient_clip_norm: 1.0
+    surrogate_epochs: 5000
+    surrogate_batch_size: 256
+    surrogate_learning_rate: 0.001  # Constant Adam rate for the global surrogate.
+    surrogate_hidden_dim: 128
+    surrogate_hidden_layers: 3
+    surrogate_eval_every: 500
+  evaluation:
+    test_seed: 2
+    reference_seed: 124
+    test_samples: 2000
+    test_space_bound: 1.5
+    reference_paths: 2000000
+    reference_chunk_size: 10000

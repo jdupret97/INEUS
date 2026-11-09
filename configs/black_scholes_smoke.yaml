@@ -1,0 +1,24 @@
+# Two-epoch execution test, including block distillation and checkpointing.
+# Keeps the 100-dimensional equation but reduces training and evaluation work.
+# These settings are not suitable for reporting accuracy.
+experiment: black_scholes
+mode: ineus
+seed: 1
+runs: 1
+output_dir: results/black_scholes_smoke
+parameters:
+  model:
+    hidden_dim: 8
+    n_layers: 2
+  train:
+    epochs: 2
+    n_inner: 2
+    num_batches: 1
+    batch_size: 4
+    num_samples: 8
+    buffer_size: 16
+    block_size: 2
+    distill_steps: 1
+    test_samples: 4
+  evaluation:
+    u_ref: null

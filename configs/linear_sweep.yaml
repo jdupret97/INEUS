@@ -1,0 +1,13 @@
+# Full training budgets inherited from Python defaults. Ten runs per dimension.
+# The equation uses the same random-coefficient construction as linear.yaml.
+# Switch mode to comparison to train PINN and local deep BSDE as well.
+experiment: linear
+mode: ineus
+seed: 29
+runs: 10
+output_dir: results/linear_sweep
+parameters:
+  problem:
+    dimensions: [10, 25, 50, 100, 150]
+    brownian_dim: 10
+    jump_intensity: 0.25  # Set 0.0 for the no-jump PDE.

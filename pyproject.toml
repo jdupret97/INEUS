@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ineus-experiments"
+version = "0.1.0"
+description = "INEUS, PINN and local deep-BSDE PIDE experiments"
+readme = "README.md"
+requires-python = ">=3.10,<3.11"
+dependencies = [
+  "numpy>=1.24,<1.25",
+  "tensorflow>=2.13,<2.16",
+  "pandas>=2,<3",
+  "scipy>=1.11,<1.12",
+  "matplotlib>=3.8,<3.9",
+  "PyYAML>=6,<7",
+  "Jinja2>=3.1.2,<4",
+]
+
+[project.scripts]
+ineus = "ineus.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["ineus*"]
+
+[tool.setuptools.package-data]
+"ineus.black_scholes" = ["LICENSE"]
