@@ -89,10 +89,9 @@ All methods and repetitions use the same test set: by default, 2,000 points
 uniform in $[-1.5,1.5]^d\times[0,T]$, generated with `test_seed: 2`. The
 reference solution is estimated using
 
-$
-u(t,x)=f(T-t)-\frac1\eta\log\mathbb E
-\left[e^{-\eta\lVert x+\sqrt2(W_T-W_t)+\sum_{j=1}^{N_{T-t}}E_j\rVert^2}\right].
-$
+$$
+u(t,x)=f(T-t)-\frac1\eta\log\mathbb E\left[e^{-\eta\lVert x+\sqrt2(W_T-W_t)+\sum_{j=1}^{N_{T-t}}E_j\rVert^2}\right].
+$$
 
 The default reference uses 2,000,000 paths, seed 124, and chunks of 10,000 paths.
 Its accuracy depends on the dimension and coefficients: it is a Monte Carlo
