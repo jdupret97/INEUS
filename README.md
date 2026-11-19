@@ -8,6 +8,10 @@ deep-BSDE comparisons.
 The code separates equation definitions, neural architectures, sampling,
 training and evaluation. Experiments are configured through YAML files.
 
+## Software contributions
+
+[Jean-Loup Dupret](https://jdupret97.github.io/) and [Davide Gallon](https://davidegallon.github.io/) contributed to the implementation of the INEUS numerical experiments.
+
 ## Available experiments
 
 | Experiment | Default dimension | Runs | Methods |
